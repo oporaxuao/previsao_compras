@@ -1,60 +1,110 @@
-🛒 Previsão de Compra Web: Otimização de Campanhas de Marketing
-📖 Sobre o Projeto
-Neste projeto de Data Science, o objetivo é resolver um problema real e recorrente no varejo: a ineficiência nos gastos com campanhas de marketing. Quando promoções e comunicações são enviadas para toda a base de clientes indiscriminadamente, o Retorno sobre Investimento (ROI) cai e os clientes ficam insatisfeitos com o excesso de ofertas irrelevantes.
+# 🛒 Purchase Prediction — Marketing Campaign Optimization
 
-A solução desenvolvida foi a criação de um modelo preditivo de classificação binária capaz de identificar com alta precisão o perfil do cliente e prever se ele realizará uma compra no canal web (WebPurchases = 1 ou 0). Isso permite que a empresa direcione os esforços de marketing apenas para o público com real propensão de conversão.
+Binary classification model to predict whether a customer will make a web purchase, enabling marketing teams to target only high-conversion profiles and maximize campaign ROI.
 
-O projeto abrange a construção de um pipeline de dados completo: desde a Análise Exploratória (EDA) e Feature Engineering, passando pela modelagem com algoritmos avançados de Machine Learning, até a tradução das métricas técnicas em recomendações práticas de negócio.
+---
 
-🛠️ Tecnologias e Ferramentas Utilizadas
-Linguagem: Python
+## 🎯 Business Objective
 
-Manipulação e Limpeza de Dados: Pandas, NumPy
+When promotions and communications are sent to the entire customer base indiscriminately, ROI drops and customers are frustrated by irrelevant offers. This project builds a predictive model that identifies — with high precision — which customers have a real propensity to buy online (`WebPurchases = 1`), allowing the company to focus marketing efforts where they will actually convert.
 
-Visualização de Dados e Storytelling: Matplotlib, Seaborn
+---
 
-Machine Learning & Modelagem Preditiva: Scikit-Learn, XGBoost, Random Forest
+## 🔍 Key Insights (EDA)
 
-Métricas de Avaliação: F1-Score, AUC-ROC, Matriz de Confusão, Feature Importance
+Exploratory analysis revealed critical patterns about consumer behavior:
 
-📊 Principais Insights (EDA)
-Durante a exploração dos dados, descobrimos padrões cruciais sobre o comportamento dos consumidores:
+**Income & Spending:** Customers who buy online have a significantly higher median income (USD 64,006 vs USD 36,640 for non-buyers).
 
-Renda e Gasto: Clientes que compram online possuem uma renda mediana significativamente maior (US$ 64.006 contra US$ 36.640 dos não-compradores).
+**The Power of Wine:** Wine spending represents approximately 55% of the average total spend in the dataset, making it the anchor product for upselling strategies.
 
-O Poder dos Vinhos: Os gastos com vinhos representam cerca de 55% do gasto total médio da base, tornando-se o produto âncora para estratégias de upselling.
+**Family Impact:** Having children at home dramatically reduces online purchase propensity — the conversion rate drops from 68.4% for customers with no children to approximately 23.9% for those with two children.
 
-Impacto Familiar: Ter filhos em casa reduz drasticamente a propensão de compra online (a taxa cai de 68.4% em clientes sem filhos para cerca de 23.9% em clientes com dois filhos).
+**Recency:** Time since last purchase was not a strong discriminator between groups, indicating that spending volume and financial profile drive conversion more than timing.
 
-Recência: O tempo decorrido desde a última compra não se mostrou um discriminador forte entre os grupos, indicando que o volume e o padrão financeiro de gastos ditam a conversão mais do que o timing.
+---
 
-🤖 Modelagem e Resultados
-Foram treinados, avaliados e comparados dois modelos baseados em Ensemble (árvores de decisão): Random Forest e XGBoost.
+## 🗂️ Methodology
 
-O XGBoost apresentou a melhor performance, demonstrando excelente capacidade de identificar os compradores reais sem gerar um volume excessivo de falsos positivos para a equipe de marketing.
+### 1. Preprocessing & Feature Engineering
+- Null value treatment and data type normalization
+- Feature engineering from demographic and behavioral variables
+- Encoding of categorical variables
 
-Métricas do Modelo Vencedor (XGBoost no conjunto de teste):
+### 2. Modeling
+Two ensemble models based on decision trees were trained and compared: **Random Forest** and **XGBoost**.
 
-F1-Score: 0.9322
+XGBoost delivered the best performance, showing excellent ability to identify real buyers without generating excessive false positives for the marketing team.
 
-AUC-ROC: 0.9791
+### 3. Evaluation
+Beyond standard classification metrics, results were translated into **business-level impact** — the measure that actually matters for a marketing team.
 
-Acurácia: 92.86%
+---
 
-Taxa de Captura: O modelo identificou corretamente 96.9% dos compradores reais.
+## 📊 Results
 
-💡 Recomendações de Negócio
-A partir da análise de Feature Importance (onde Gasto Total e Gasto em Vinhos foram os fatores mais determinantes), as seguintes ações táticas foram sugeridas:
+**Winning model: XGBoost (test set)**
 
-Campanha Premium de Vinhos: Focar nos clientes com alto score no modelo e sem filhos em casa, maximizando a taxa de conversão e o ticket médio.
+| Metric | Value |
+|---|---|
+| F1-Score | 0.9322 |
+| AUC-ROC | 0.9791 |
+| Accuracy | 92.86% |
+| Capture Rate | 96.9% of real buyers correctly identified |
 
-Retenção com Descontos: Direcionar ofertas específicas para clientes com score médio e com filhos, visando evitar o churn motivado por mudança nas prioridades de consumo da família.
+---
 
-Migração para o Digital: Realizar testes A/B com clientes que possuem alto volume de compras em lojas físicas, oferecendo incentivos exclusivos para a primeira compra na web.
+## 💡 Business Recommendations
 
-🚀 Próximos Passos
-Otimização avançada de hiperparâmetros utilizando bibliotecas como GridSearchCV ou Optuna.
+Based on Feature Importance analysis (Total Spend and Wine Spend were the most decisive factors):
 
-Avaliação de técnicas de geração de dados sintéticos (como SMOTE) caso o comportamento da base mude e se torne mais desbalanceado com o tempo.
+**Premium Wine Campaign:** Target customers with a high model score and no children at home — maximizing conversion rate and average ticket.
 
-Deploy do modelo através de uma API (por exemplo, usando FastAPI) para realizar o scoring dos clientes em tempo real.
+**Retention with Discounts:** Direct specific offers to customers with medium score and children, aiming to prevent churn driven by changing family spending priorities.
+
+**Digital Migration:** Run A/B tests with customers who have high in-store purchase volume, offering exclusive incentives for their first web purchase.
+
+---
+
+## 🚀 Next Steps
+
+- Advanced hyperparameter optimization with `GridSearchCV` or `Optuna`
+- Evaluation of synthetic data generation (SMOTE) if class distribution shifts over time
+- Model deployment via REST API (FastAPI) for real-time customer scoring
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Tools |
+|---|---|
+| Language | Python |
+| Data Manipulation | Pandas, NumPy |
+| Visualization | Matplotlib, Seaborn |
+| Machine Learning | Scikit-learn, XGBoost, Random Forest |
+| Evaluation Metrics | F1-Score, AUC-ROC, Confusion Matrix, Feature Importance |
+| Environment | Jupyter Notebook |
+
+---
+
+## ▶️ How to Run
+
+```bash
+# Clone the repository
+git clone https://github.com/oporaxuao/purchase-prediction-ml.git
+cd purchase-prediction-ml
+
+# Install dependencies
+pip install pandas numpy matplotlib seaborn scikit-learn xgboost jupyter
+
+# Launch the notebook
+jupyter notebook
+```
+
+---
+
+## 👤 Author
+
+**João Alfredo de Sousa Siqueira**
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-oporaxuao-blue)](https://linkedin.com/in/oporaxuao)
+[![GitHub](https://img.shields.io/badge/GitHub-oporaxuao-black)](https://github.com/oporaxuao)
